@@ -5,9 +5,17 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        title: ['PartialSansKR-Regular', 'ui-sans-serif', 'system-ui'],
+        noto: ['"Noto Sans"', 'sans-serif'],
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss'),
+    require('autoprefixer'),
+  ],
   future: {
     hoverOnlyWhenSupported: true,
   },
