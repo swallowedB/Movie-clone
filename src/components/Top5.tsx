@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';  
+import { Link } from "react-router-dom";
 import 'swiper/swiper-bundle.css'; 
 import { Navigation, Pagination, Scrollbar, A11y, EffectCoverflow } from 'swiper/modules'; 
 import Card from './Card';
@@ -44,35 +45,30 @@ export default function Top5({movies}:Top5Props) {
             stretch: 20,
             depth: 350,
             modifier: 1,
-            slideShadows: true,
+            slideShadows: false,
           }}
           onSwiper={(swiper) => {
             
-            swiper.on('click', (event) => {
+            swiper.on('click', () => {
               swiper.slideTo(swiper.clickedIndex);
             });
           }}
-          className={`lg:w-[1500px] lg:h-[30rem]
-            `}>
-          {top5Movies.map((movie, index) => (
+
+          className={`w-full sm:w-[500px] md:w-[800px] lg:w-[1200px] xl:w-[1500px] 
+            h-[20rem] sm:h-[25rem] md:h-[30rem] lg:h-[30rem] xl:h-[35rem]`}>
+
+          {top5Movies.map((movie) => (
             <SwiperSlide 
               key={movie.id} 
-              className="flex items-center justify-center"
+              className={`
+                flex items-center justify-center`}
             >
-              <div className={
-                `w-[310px] h-[25rem] sm:h-[15rem] md:h-[30rem] lg:h-[30rem] rounded-3xl 
-                 shadow-custom-heavy relative
-                `}>
-                  {index !== 2 && (
-                    <div
-                      className='absolute top-0 left-0 w-full h-full bg-white opacity-10 rounded-3xl z-20'
-                      >
-
-                    </div>
-                  )}
+              <div>
                 <div className="relative w-full h-full z-10">
                   {/* Card 컴포넌트 삽입 */}
+                  <Link to={`/movie/${movie.id}`}>
                   <Card movie={movie} />
+                  </Link>
                 </div>
               </div>
             </SwiperSlide>

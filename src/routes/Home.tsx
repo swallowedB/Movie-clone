@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Movie from "../components/Movie";
 import bgImg from "../assets/images/bg1.jpg";
 import Top5 from "../components/Top5";
@@ -19,19 +18,15 @@ interface Movie {
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
 
-  const location = useLocation();
 
   const getMovies = async () => {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=cd7aeec7780132cd34e84575873a2f94&with_genres=16&sort_by=popularity.desc&page=${page}`
+        `https://api.themoviedb.org/3/discover/movie?api_key=cd7aeec7780132cd34e84575873a2f94&with_genres=16&sort_by=popularity.desc`
       );
       const json = await response.json();
       setMovies(json.results);
-      setTotalPage(json.total_pages);
       setLoading(false);
 
     } catch (error) {
@@ -39,15 +34,11 @@ export default function Home() {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    if (location.state && location.state.page){
-      setPage(location.state.page);
-    }
-  }, [location.state]);
 
   useEffect(() => {
     getMovies();
-  }, [page]);
+  }, []);
+
 
   return (
     <div>
@@ -97,7 +88,7 @@ export default function Home() {
                     <Serach />
                 
                   {/* banner Top5 card */}
-                  <div className="absolute top-[35%] left-1/2 transform -translate-x-1/2 z-20">
+                  <div className="absolute top-[30%] left-1/2 transform -translate-x-1/2 z-20">
                     <Top5 movies={movies}/></div>
                   </div> 
 
