@@ -1,32 +1,51 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Movie from "../components/Movie";
-import bgImg from "../assets/images/animating Movie.jpg";
+import bgImg from "../assets/images/bg2.jpg";
 import Top5 from "../components/Top5";
+import Allmovies from "../components/Allmovies";
 
 interface Movie {
   id: number;
-  medium_cover_image: string;
   title: string;
-  summary: string;
-  genres: string[];
+  poster_path: string; 
+  overview: string; 
+  genres: { id: number; name: string }[]; 
+  rating: number;
 }
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+
+  const location = useLocation();
 
   const getMovies = async () => {
-    const response = await fetch(
-      `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
-    );
-    const json = await response.json();
-    setMovies(json.data.movies);
-    setLoading(false);
+    try {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=cd7aeec7780132cd34e84575873a2f94&with_genres=16&sort_by=popularity.desc&page=${page}`
+      );
+      const json = await response.json();
+      setMovies(json.results);
+      setTotalPage(json.total_pages);
+      setLoading(false);
+
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+      setLoading(false);
+    }
   };
+  useEffect(() => {
+    if (location.state && location.state.page){
+      setPage(location.state.page);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     getMovies();
-  }, []);
+  }, [page]);
 
   return (
     <div>
@@ -35,7 +54,7 @@ export default function Home() {
       ) : (
         <div>
           {/* Main */}
-          <div className="bg-[#0A0D16] h-screen flex items-center justify-center">
+          <div className="relative bg-[#0A0D16] min-h-screen pb-[200px]">
             <div
               id="main" 
               className={`
@@ -43,11 +62,13 @@ export default function Home() {
               w-full h-screen relative
               
             `}>
-              <div className="">
+              <div className="relative">
+                <div className="absolute inset-0 bg-black/50 backdrop-blur-3xl z-20">
+                </div>
                 <img 
                   src={bgImg} 
                   alt="mainImg" 
-                  className="absolute w-full h-auto z-0"/>
+                  className="absolute w-full h-auto z-10 object-cover filter blur-md "/>
               </div>
 
                 {/* banner section */}
@@ -89,26 +110,22 @@ export default function Home() {
                       Have a good time</p>
                   </div> 
                 
-                {/* banner Top5 card */}
-                <div className="absolute top-[40%] left-1/2 transform -translate-x-1/2 z-20">
-                  <Top5 />
+                  {/* banner Top5 card */}
+                  <div className="absolute top-[40%] left-1/2 transform -translate-x-1/2 z-20">
+                    <Top5 movies={movies}/></div>
+                  </div> 
+
                 </div>
 
-                </div> 
-                
+                {/* all movies */}
+                <div className=" bg-[#0A0D16] z-0 absolute flex items-end p-[190px]">
+                  <Allmovies movies={movies}/>
+                </div>
 
-            </div>
           </div>
-          {movies.map((movie) => (
-            <Movie
-              id={movie.id}
-              key={movie.id}
-              coverImg={movie.medium_cover_image}
-              title={movie.title}
-              summary={movie.summary}
-              genres={movie.genres}
-            />
-          ))}
+
+
+
         </div>
       )}
     </div>

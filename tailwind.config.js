@@ -10,6 +10,18 @@ export default {
         title: ['PartialSansKR-Regular', 'ui-sans-serif', 'system-ui'],
         noto: ['"Noto Sans"', 'sans-serif'],
       },
+      boxShadow: {
+        'custom-light': '0 4px 6px rgba(0, 0, 0, 0.2)',
+        'custom-heavy': '0 10px 10px rgba(0, 0, 0, 0.3)',
+      },
+      perspective: {
+        '500': '500px',
+        '1000': '1000px',
+      },
+      backdropBlur: {
+        xs: '2px',
+        '3xl': '50px',
+      },
     },
   },
   plugins: [
