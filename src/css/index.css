@@ -1,12 +1,24 @@
-@font-face {
-  font-family: 'PartialSansKR-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-@import "./fonts.css";
+
+@import '../css/font.css';
 @import "swiper/swiper-bundle.css";
+@import '../css/tailwind.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-gradient {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+}
+
+input::placeholder {
+  color: white;
+  opacity: 50%;
+
+}
+
+input {
+  width: 100% !important; /* 우선순위 높이기 */
+  height: 40px !important;
+  padding: 0 50px !important;
+}

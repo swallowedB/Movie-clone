@@ -1,6 +1,6 @@
-import { Swiper, SwiperSlide } from 'swiper/react';  // 이렇게 한 줄로 수정
+import { Swiper, SwiperSlide } from 'swiper/react';  
 import 'swiper/swiper-bundle.css'; 
-import { Navigation, Pagination, Scrollbar, A11y, EffectCoverflow } from 'swiper/modules'; // 모듈 가져오기
+import { Navigation, Pagination, Scrollbar, A11y, EffectCoverflow } from 'swiper/modules'; 
 import Card from './Card';
 
 interface Top5Props {
@@ -26,14 +26,14 @@ export default function Top5({movies}:Top5Props) {
     <>
       <div className="flex items-center justify-center ">
         <Swiper
-          modules={[Navigation, Pagination, Scrollbar, A11y, EffectCoverflow]} // 커버플로우 효과 추가
+          modules={[Navigation, Pagination, Scrollbar, A11y, EffectCoverflow]}
           spaceBetween={20}
-          slidesPerView={5} // 자동 슬라이드 너비
+          slidesPerView={5} 
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }} 
           pagination={{
             clickable: true,
           }}
-          effect="coverflow" // 커버플로우 효과 활성화
+          effect="coverflow" 
           grabCursor={true}
           centeredSlides={true}
           initialSlide={2}
@@ -47,7 +47,7 @@ export default function Top5({movies}:Top5Props) {
             slideShadows: true,
           }}
           onSwiper={(swiper) => {
-            // Swiper 이벤트 핸들러
+            
             swiper.on('click', (event) => {
               swiper.slideTo(swiper.clickedIndex);
             });
@@ -65,7 +65,7 @@ export default function Top5({movies}:Top5Props) {
                 `}>
                   {index !== 2 && (
                     <div
-                      className='absolute top-0 left-0 w-full h-full bg-white opacity-30 rounded-3xl z-20'
+                      className='absolute top-0 left-0 w-full h-full bg-white opacity-10 rounded-3xl z-20'
                       >
 
                     </div>
@@ -78,8 +78,10 @@ export default function Top5({movies}:Top5Props) {
             </SwiperSlide>
           ))}
             {/* 좌우 화살표 */}
-            <div className="swiper-button-next text-white rounded-full p-2"></div>
-            <div className="swiper-button-prev text-white rounded-full p-2"></div>
+            <div className=''>
+              <div className="swiper-button-next text-white rounded-full p-2"></div>
+              <div className="swiper-button-prev text-white rounded-full p-2"></div>
+            </div>
 
         </Swiper>
   

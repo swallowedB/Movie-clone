@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Movie from "../components/Movie";
-import bgImg from "../assets/images/bg2.jpg";
+import bgImg from "../assets/images/bg1.jpg";
 import Top5 from "../components/Top5";
 import Allmovies from "../components/Allmovies";
+import Serach from "../components/Search";
 
 interface Movie {
   id: number;
@@ -12,6 +13,7 @@ interface Movie {
   overview: string; 
   genres: { id: number; name: string }[]; 
   rating: number;
+  popularity: number;
 }
 
 export default function Home() {
@@ -56,29 +58,28 @@ export default function Home() {
           {/* Main */}
           <div className="relative bg-[#0A0D16] min-h-screen pb-[200px]">
             <div
-              id="main" 
               className={`
               bg-[#09132C] 
               w-full h-screen relative
               
             `}>
               <div className="relative">
-                <div className="absolute inset-0 bg-black/50 backdrop-blur-3xl z-20">
+                <div className="absolute inset-0 bg-black backdrop-blur-3xl z-20">
                 </div>
                 <img 
                   src={bgImg} 
                   alt="mainImg" 
-                  className="absolute w-full h-auto z-10 object-cover filter blur-md "/>
+                  className="absolute w-full h-auto z-10 object-cover "/>
               </div>
 
                 {/* banner section */}
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-start mt-[95px]">
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-start mt-[100px]">
                   {/* banner title */}
                   <div className="flex flex-col items-center justify-center">
                     <h1
                       className={`
                         font-title text-white 
-                        text-[100px] sm:text-[40px] md:text-[55px] lg:text-[70px] xl:text-[110px]
+                        text-[100px] sm:text-[40px] md:text-[55px] lg:text-[70px] xl:text-[70px]
                         min-[100px]:text-[40px]
                         leading-none
                         `}
@@ -86,40 +87,27 @@ export default function Home() {
                     <h3
                       className={
                         `font-title
-                      text-white text-[65px] sm:text-[25px] md:text-[40px] lg:text-[50px] xl:text-[75px]
+                      text-white text-[65px] sm:text-[25px] md:text-[40px] lg:text-[50px] xl:text-[50px]
                         min-[320px]:text-[25px]
                       `}>
                         ANIMATIONS ARE</h3>
                   </div>
                   
-                  {/* banner subtitle */}
-                  <div className="flex flex-col items-center justify-center">
-                    <p
-                      className={`
-                        font-noto leading-none 
-                        text-white text-[23px] sm:text-[13px] md:text-[16px] lg:text-[18px] xl:text-[20px]
-                        min-[100px]:text-[12px]
-                      `}>
-                      Welcome To The Animating</p>
-                    <p
-                      className={`
-                        font-noto text-white 
-                        text-[23px] sm:text-[13px] md:text-[18px] lg:text-[16px] xl:text-[20px]
-                        min-[100px]:text-[12px]
-                      `}>
-                      Have a good time</p>
-                  </div> 
+                  {/* banner serach */}
+                    <Serach />
                 
                   {/* banner Top5 card */}
-                  <div className="absolute top-[40%] left-1/2 transform -translate-x-1/2 z-20">
+                  <div className="absolute top-[35%] left-1/2 transform -translate-x-1/2 z-20">
                     <Top5 movies={movies}/></div>
                   </div> 
 
                 </div>
 
                 {/* all movies */}
-                <div className=" bg-[#0A0D16] z-0 absolute flex items-end p-[190px]">
-                  <Allmovies movies={movies}/>
+                <div className="z-40 absolute grid place-items-center w-full h-full p-20">
+                  <div className="bg-slate-400/30 px-32 p-20 rounded-3xl mt-10 border-2">
+                    <Allmovies movies={movies}/>
+                  </div>
                 </div>
 
           </div>
