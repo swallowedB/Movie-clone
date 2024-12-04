@@ -62,7 +62,8 @@ export default function Home() {
                   alt="mainImg" 
                   className="absolute w-full h-auto z-10 object-cover "/>
               </div>
-
+              
+              
                 {/* banner section */}
                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-start mt-[100px]">
                   {/* banner title */}
